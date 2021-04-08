@@ -4,8 +4,24 @@ $(document).ready(function() {
 
   var app = $.spapp({pageNotFound : 'error_404'}); // initialize
 
-  //TODO dodaj rute sve
-  // define routes
+  app.route({
+    view: 'customers',
+    load: 'customers.html'
+  });
+
+  app.route({
+    view: 'borrows',
+    load: 'borrows.html'
+  });
+
+  app.route({
+    view: 'employees',
+    load: 'employees.html'
+  });
+  app.route({
+    view: 'libraries',
+    load: 'libraries.html'
+  });
   app.route({
     view: 'books',
     load: 'books.html'

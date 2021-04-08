@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        
+        
+
+        body{
+          margin: 0;
+          padding: 0;
+          background:url("assets/img/backLogin.jpg") no-repeat;
+          background-size:cover;
+          background-position: center;
+          font-family: sans-serif;
+        }
+
+        .loginbox{
+          width:320px;
+          height:390px;
+          background: rgb(22, 13, 13);
+          color:#fff;
+          top:50%;
+          left:50%;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          box-sizing:border-box;
+          padding: 70px 30px;
+          border-radius:10%;
+      
+        }
+      
+        .loginbox input{
+          width:100%;
+          margin-bottom: 5px;
+        }
+      
+      .loginbox input[type="text"], input[type=password], input[type=email]{
+        border: none;
+        border-bottom: 1px solid #fff;
+        background: transparent;
+        outline:none;
+        height: 40px;
+        color: #fff;
+        font-size: 16px;
+      }
+      
+      .loginbox button{
+        width:100%;
+        border:none;
+        outline:none;
+        height: 40px;
+        background: #fb2525;
+        color: #fff;
+        font-size: 18px;
+        border-radius: 20px;
+      }
+      
+      .loginbox button[type="submit"]:hover{
+        cursor: pointer;
+        background: #ffc107;
+        color: #000;
+        margin-bottom: 5px;
+      }
+      
+        h1{
+          margin:0;
+          padding: 0 0 20px;
+          text-align: center;
+          font-size: 22px;
+        }
+      
+        .loginbox p{
+          margin:0;
+          padding: 0;
+          font-weight: bold;
+        }
+      
+        .loginbox a{
+          text-decoration: none;
+          font-size: 12px;
+          line-height: 20px;
+          color: darkgrey;
+          margin-top: 5px;
+        }
+      
+        .loginbox a:hover{
+          color: #ffc107;
+        }
+      </style>
+<body>
+
+    <div class="loginbox">
+      
+      <h1>Login here</h1>
+    
+    <form id="loginbox" method="get">
+    
+      <p>Username</p>
+      <input type="text" name="username_login" minlength="2" placeholder="Username" required>
+    
+      <p>Password</p>
+      <input type="password" name="password" placeholder="Password" required>
+    
+      <button type="submit" name="sumbit">Sumbit</button><br><br>
+    
+    
+    </form>
+    
+    </body>
+
+    
+</html>
