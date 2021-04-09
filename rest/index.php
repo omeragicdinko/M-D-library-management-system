@@ -2,6 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS, PATCH');
 
+require 'Auth.php';
 require_once('../vendor/autoload.php');
 require_once('config.php');
 require_once('dao/CustomerDao.class.php');
@@ -112,8 +113,19 @@ Flight::route('POST /login', function()
     $db_employee = Flight::employee_dao()->getEmployeeByEmail($employee['email']);
 
     if ($db_employee) {
+        echo $db_employee['password'];
         if ($db_employee['password'] == $employee['password']) {
-            //TODO add something
+            $token_data = [
+                'id' => $db_employee['id'],
+                'email' => $db_employee['email'],
+                'name' => $db_employee['name'],
+                'surname' => $db_employee['surname'],
+                'phone_number' => $db_employee['phone_number'],
+                'manager' => $db_employee['manager']
+              ];
+
+            $jwt = Auth::encode_jwt($token_data);
+            Flight::json(['user_token' => $jwt]);
         } else {
             Flight::halt(404, 'Password is not correct');
         }
