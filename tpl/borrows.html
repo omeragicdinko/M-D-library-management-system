@@ -1,55 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
-    <style>
+<style>
+body {
+  background:url("assets/img/background.jpg") no-repeat center fixed;     
+  background-size: cover;
+}
+.search {
+  width: 50%;
+  padding: 5px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.table {
+  width: 50%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+h2 {
+  text-align: center;
+}
+</style>
 
-        body{
-            background:url("assets/img/background.jpg") no-repeat center fixed;     
-            background-size: cover;;
-        }
-     
-        .search {
-          width: 50%;
-          padding: 5px;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-        .table{
-          width: 50%;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-       h2 {
-         text-align: center;
-       }
-      </style>
-     
-
-<br>
-
+<body>
 <h2>Borrows</h2>
 
-<br>
-
-<div  class="search" align="center">
-  <input type="text" name="borrows_search" id="borrows_search" class="form-control" />
+<div class="search">
+  <input type="text" name="borrows-search" id="borrows-search" class="form-control" />
 </div>
 
-<table class="table" id="borrows_table">
-     <thead>
-       <tr>
-        <th scope="col">BookID</th>
-        <th scope="col">CustomerID</th>
-        <th scope="col">EmployeeID</th>
-        <th scope="col">Borrow date</th>
-        <th scope="col">Return date</th>
-       </tr>
-     </thead>
-     <tbody id="table_content_borrows">
-     </tbody>
-   </table>
+<div class="table-responsive">
+  <table class="table" id="borrows-table">
+    <thead>
+      <tr>
+      <th scope="col">Book Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Customer Phone Number</th>
+      <th scope="col">Employee Name</th>
+      <th scope="col">Employee Phone Number</th>
+      <th scope="col">Borrow date</th>
+      <th scope="col">Return date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Update</th>
+      <th scope="col">Finalize</th>
+      <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody id="table-content-borrows">
+    </tbody>
+  </table>
+</div>
 
+<div class="modal fade" id="edit-borrow-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="edit-borrow-form">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Enter borrow data</h4>
+          <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="hidden" name="id" class="form-control"></input>
+          </div>
+          <div>
+            <label for="customer-id">Customer ID:</label>
+            <input type="text" name="customer-id"  class="form-control" placeholder="Enter customer ID" required="true"></input>
+          </div>
+          <div>
+            <label for="employee-id">Employee ID:</label>
+            <input type="text" name="employee-id" class="form-control" placeholder="Enter employee ID" required="true"></input>
+          </div>
+          <div>
+            <label for="borrow-date">Borrow date:</label>
+            <input type="text" name="borrow-date" class="form-control" placeholder="Enter borrow date" required="true"></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="edit-borrow-submit-button" class="btn btn-primary">Update Borrow</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="finalize-borrow-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="finalize-borrow-form">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Enter borrow data</h4>
+          <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="hidden" name="id" class="form-control"></input>
+          </div>
+          <div>
+            <label for="return-date">Return date:</label>
+            <input type="text" name="return-date"  class="form-control" placeholder="Enter return date" required="true"></input>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="finalize-borrow-submit-button" class="btn btn-primary">Finalize Borrow</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
 </html>
+<script>
+get_borrows();
+
+function get_borrows() {
+  $.get( "rest/borrows", function(data) {
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+      html += '<tr> <td>' + data[i].book_name + '</td>';
+      html += ' <td>' + data[i].author + '</td>';
+      html += ' <td>' + data[i].customer_name + '</td>';
+      html += ' <td>' + data[i].customer_phone_number + '</td>';
+      html += '<td>' + data[i].employee_name + '</td>';
+      html += '<td>' + data[i].employee_phone_number + '</td>';
+      html += '<td>' + data[i].borrow_date + '</td>';
+      html += '<td>' + data[i].return_date + '</td>';
+      html += '<td>' + data[i].status + '</td>';
+      html += '<td><button type="button" class="btn btn-primary" onClick="open_edit_borrow_modal('+data[i].id+')">Update</button></td>';
+      html += '<td><button type="button" class="btn btn-primary" onClick="open_finalize_modal('+ data[i].id+', \''+data[i].status+'\')">Finalize</button></td>';
+      html += '<td><button type="button" class="btn btn-danger" onClick="handle_delete_borrow_button('+data[i].id+', \''+data[i].status+'\')">Delete</button></td><tr>';
+    }
+    $("#table-content-borrows").html(html);
+    });
+}
+
+function handle_delete_borrow_button(id, status) {
+  if (status == "FINALIZED") {
+    $.ajax({
+    url: 'rest/borrow/'+id,
+    method: 'DELETE',
+    success: function(result) {
+      toastr.success('Deleted');
+      get_borrows();
+    },
+    error: function() {
+      toastr.success('Not deleted');
+    }
+    });
+  } else {
+    toastr.error('Only finalized borrows can be deleted');
+  }
+}
+
+function open_edit_borrow_modal(id) {
+  $.ajax({
+    url: 'rest/borrow/'+id,
+    method: 'GET',
+    success: function(data) {
+      $('#edit-borrow-modal').modal('toggle');
+      $("#edit-borrow-form input[name=customer-id]").val(data[0].customer_id);
+      $("#edit-borrow-form input[name=id]").val(data[0].id);
+      $("#edit-borrow-form input[name=employee-id]").val(data[0].employee_id);
+      $("#edit-borrow-form input[name=borrow-date]").val(data[0].borrow_date);
+    },
+    error: function(){
+      toastr.error(error.responseText);
+    }
+  });
+}
+
+$('#edit-borrow-form').validate({
+  submitHandler: function(form) {
+    var borrow = {
+      id: $('#edit-borrow-form input[name="id"]').val(),
+      customer_id: $('#edit-borrow-form input[name="customer-id"]').val(),
+      employee_id: $('#edit-borrow-form input[name="employee-id"]').val(),
+      borrow_date: $('#edit-borrow-form input[name="borrow-date"]').val(),
+    }
+    $.post( "rest/borrows", borrow ).done(function(data) {
+      toastr.success('You have updated a borrow');
+      $('#edit-borrow-modal').modal('toggle');
+      get_borrows();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
+
+function open_finalize_modal(id, status) {
+  if (status != "FINALIZED") {
+    $('#finalize-borrow-modal').modal('toggle');
+    $("#finalize-borrow-form input[name=id]").val(id);
+  } else {
+    toastr.error('Only non-finalized borrows can be finalized');
+  }
+}
+
+$('#finalize-borrow-form').validate({
+  submitHandler: function(form) {
+    var borrow = {
+      id: $('#finalize-borrow-form input[name="id"]').val(),
+      return_date: $('#finalize-borrow-form input[name="return-date"]').val(),
+      status: "FINALIZED"
+    }
+    $.post( "rest/borrows", borrow ).done(function(data) {
+      toastr.success('You have finalized a borrow');
+      $('#finalize-borrow-modal').modal('toggle');
+      get_borrows();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
+
+$(document).ready(function() {
+  $("#borrows-search").keyup(function() {
+    search_table($(this).val());
+  });
+  function search_table(value) {
+    $('#borrows-table tbody tr').each(function() {
+      var found = 'false';
+      $(this).each(function() {
+        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+          found = 'true';
+        }
+      });
+      if (found == 'true') {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
+});
+</script>

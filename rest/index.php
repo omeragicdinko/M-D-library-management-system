@@ -19,7 +19,7 @@ Flight::register('library_dao', 'LibraryDao');
 
 Flight::route('GET /books', function()
 {
-    $books = Flight::book_dao()->getAll();
+    $books = Flight::book_dao()->getBookInfo();
     Flight::json($books);
 });
 
@@ -43,7 +43,7 @@ Flight::route('GET /employees', function()
 
 Flight::route('GET /borrows', function()
 {
-    $borrows = Flight::borrow_dao()->getAll();
+    $borrows = Flight::borrow_dao()->getBorrowInfo();
     Flight::json($borrows);
 });
 
@@ -147,6 +147,14 @@ Flight::route('POST /books', function()
     Flight::json('Updated');
 });
 
+Flight::route('POST /borrows', function()
+{
+    $request = Flight::request()->data->getData();
+    $id = $request['id'];
+    Flight::borrow_dao()->updateBorrow($request, $id);
+    Flight::json('Updated');
+});
+
 Flight::route('POST /customers', function()
 {
     $request = Flight::request()->data->getData();
@@ -170,8 +178,6 @@ Flight::route('POST /employees', function()
     Flight::employee_dao()->updateEmployee($request, $id);
     Flight::json('Updated');
 });
-
-//TODO update borrow add
 
 Flight::route('DELETE /book/@id', function($id)
 {

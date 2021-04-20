@@ -1,55 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-    <style>
-
-        body{
-            background:url("assets/img/background.jpg") no-repeat center fixed;     
-            background-size: cover;;
-        }
+<style>
+body {
+  background:url("assets/img/background.jpg") no-repeat center fixed;     
+  background-size: cover;
+}
+.search {
+  width: 50%;
+  padding: 5px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.table {
+  width: 50%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+h2 {
+  text-align: center;
+}
+</style>
      
-        .search {
-          width: 50%;
-          padding: 5px;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-        .table{
-          width: 50%;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-       h2 {
-         text-align: center;
-       }
-      </style>
-     
-
-<br>
-
+<body>
 <h2>Books</h2>
 
-<br>
-
-<div  class="search" align="center">
-  <input type="text" name="books_search" id="books_search" class="form-control" />
+<div class="search">
+  <button type="button" class="btn btn-primary" onclick="open_add_book_modal()">Add new book</button>
+  <input type="text" name="books-search" id="books-search" class="form-control"/>
 </div>
 
-<table class="table" id="books_table">
-     <thead>
-       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Author</th>
-        <th scope="col">Genre</th>
-        <th scope="col">Year of publishing</th>
-        <th scope="col">Available</th>
-       </tr>
-     </thead>
-     <tbody id="table_content_books">
-     </tbody>
-   </table>
+<div class="table-responsive">
+  <table class="table" id="books-table">
+    <thead>
+      <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Genre</th>
+      <th scope="col">Year of publishing</th>
+      <th scope="col">Available</th>
+      <th scope="col">Library Name</th>
+      <th scope="col">Location</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Update Book</th>
+      <th scope="col">Borrow Book</th>
+      <th scope="col">Delete Book</th>
+    </tr>
+    </thead>
+    <tbody id="table-content-books">
+    </tbody>
+  </table>
+</div>
 
+<div class="modal fade" id="add-book-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="add-book-form">
+        <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Enter new book data</h4>
+        <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name"  class="form-control" placeholder="Enter book name" required="true"></input>
+          </div>
+          <div>
+            <label for="author">Author:</label>
+            <input type="text" name="author" class="form-control" placeholder="Enter author name" required="true"></input>
+          </div>
+          <div>
+            <label for="genre">Genre:</label>
+            <input type="text" name="genre" class="form-control" placeholder="Enter book genre" required="true"></input>
+          </div>
+          <div>
+            <label for="year-of-publishing">Year of publishing:</label>
+            <input type="text" name="year-of-publishing" class="form-control" placeholder="Enter year of publishing" required="true"></input>
+          </div>
+          <div>
+            <label for="library-id">Library ID:</label>
+            <input type="text" name="library-id" class="form-control" placeholder="Enter library ID" required="true"></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="add-book-submit-button" class="btn btn-primary">Add new book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="edit-book-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="edit-book-form">
+        <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Enter book data</h4>
+        <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="hidden" name="id" class="form-control"></input>
+          </div>
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter book name" required="true"></input>
+          </div>
+          <div>
+            <label for="author">Author:</label>
+            <input type="text" name="author" class="form-control" placeholder="Enter author name" required="true"></input>
+          </div>
+          <div>
+            <label for="genre">Genre:</label>
+            <input type="text" name="genre" class="form-control" placeholder="Enter book genre" required="true"></input>
+          </div>
+          <div>
+            <label for="year-of-publishing">Year of publishing:</label>
+            <input type="text" name="year-of-publishing" class="form-control" placeholder="Enter year of publishing" required="true"></input>
+          </div>
+          <div>
+            <label for="library-id">Library ID:</label>
+            <input type="text" name="library-id" class="form-control" placeholder="Enter library ID" required="true"></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="update-button" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="borrow-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="borrow-form">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Enter borrow data</h4>
+          <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="hidden" name="book-id" class="form-control"></input>
+          </div>
+          <div>
+            <label for="customer-id">Customer ID:</label>
+            <input type="text" name="customer-id"  class="form-control" placeholder="Enter customer ID" required="true"></input>
+          </div>
+          <div>
+            <label for="employee-id">Employee ID:</label>
+            <input type="text" name="employee-id" class="form-control" placeholder="Enter employee ID" required="true"></input>
+          </div>
+          <div>
+            <label for="borrow-date">Borrow date:</label>
+            <input type="text" name="borrow-date" class="form-control" placeholder="Enter borrow date" required="true"></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="borrow-submit-button" class="btn btn-primary">Borrow</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
 </html>
+
+<script>
+get_books();
+
+function get_books() {
+  $.get( "rest/books", function(data) {
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+      html += '<tr> <td>' + data[i].id + '</td>';
+      html += ' <td>' + data[i].name + '</td>';
+      html += ' <td>' + data[i].author + '</td>';
+      html += ' <td>' + data[i].genre + '</td>';
+      html += ' <td>' + data[i].year_of_publishing + '</td>';
+      html += '<td>' + data[i].available + '</td>';
+      html += '<td>' + data[i].library_name + '</td>';
+      html += '<td>' + data[i].library_location + '</td>';
+      html += '<td>' + data[i].phone_number + '</td>';
+      html += '<td><button type="button" class="btn btn-primary" onClick="open_edit_book_modal('+data[i].id+')">Update</button></td>';
+      html += '<td><button type="button" class="btn btn-primary" onClick="handle_borrow_book_button('+ data[i].id+', \''+data[i].available+'\')">Borrow</button></td>';
+      html += '<td><button type="button" class="btn btn-danger" onClick="handle_delete_book_button('+data[i].id+')">Delete</button></td><tr>';
+    }
+    $("#table-content-books").html(html);
+    });
+}
+
+function handle_delete_book_button(id) {
+  $.ajax({
+    url: 'rest/book/'+id,
+    method: 'DELETE',
+    success: function(result) {
+      toastr.success('Deleted');
+      get_books();
+    },
+    error: function() {
+      toastr.error('Not deleted');
+    }
+    });
+}
+
+function open_add_book_modal() {
+  $('#add-book-modal').modal('toggle');
+}
+
+$('#add-book-form').validate({
+  submitHandler: function(form) {
+    var book = {
+      name: $('#add-book-form input[name="name"]').val(),
+      author: $('#add-book-form input[name="author"]').val(),
+      genre: $('#add-book-form input[name="genre"]').val(),
+      year_of_publishing: $('#add-book-form input[name="year-of-publishing"]').val(),
+      available: "YES",
+      library_id: $('#add-book-form input[name="library-id"]').val(),
+    }
+    $.post( "rest/book", book ).done(function(data) {
+      toastr.success('You have added a new book');
+      $('#add-book-modal').modal('toggle');
+      get_books();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
+
+function open_edit_book_modal(id) {
+  $.ajax({
+    url: 'rest/book/'+id,
+    method: 'GET',
+    success: function(data) {
+      $('#edit-book-modal').modal('toggle');
+      $("#edit-book-form input[name=name]").val(data[0].name);
+      $("#edit-book-form input[name=id]").val(data[0].id);
+      $("#edit-book-form input[name=author]").val(data[0].author);
+      $("#edit-book-form input[name=genre]").val(data[0].genre);
+      $("#edit-book-form input[name=year-of-publishing]").val(data[0].year_of_publishing);
+      $("#edit-book-form input[name=library-id]").val(data[0].library_id);
+    },
+    error: function(){
+      toastr.error(error.responseText);
+    }
+  });
+}
+
+$('#edit-book-form').validate({
+  submitHandler: function(form) {
+    var book = {
+      id: $('#edit-book-form input[name="id"]').val(),
+      name: $('#edit-book-form input[name="name"]').val(),
+      author: $('#edit-book-form input[name="author"]').val(),
+      genre: $('#edit-book-form input[name="genre"]').val(),
+      year_of_publishing: $('#edit-book-form input[name="year-of-publishing"]').val(),
+      library_id: $('#edit-book-form input[name="library-id"]').val(),
+    }
+    $.post( "rest/books", book ).done(function(data) {
+      toastr.success('You have updated a book');
+      $('#edit-book-modal').modal('toggle');
+      get_books();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
+
+function handle_borrow_book_button(id, available) {
+  if (available==="YES") {
+    $('#borrow-modal').modal('toggle');
+    $("#borrow-form input[name=book-id]").val(id);
+  } else {
+    toastr.error("That book is not available");
+  }
+}
+
+$('#borrow-form').validate({
+  submitHandler: function(form) {
+    var id = $('#borrow-form input[name="book-id"]').val();
+    var borrow = {
+      book_id: $('#borrow-form input[name="book-id"]').val(),
+      customer_id: $('#borrow-form input[name="customer-id"]').val(),
+      employee_id: $('#borrow-form input[name="employee-id"]').val(),
+      borrow_date: $('#borrow-form input[name="borrow-date"]').val(),
+    }
+    $.post( "rest/borrow", borrow ).done(function(data) {
+      $('#borrow-modal').modal('toggle');
+      $.post('rest/book/availability/'+ id, id).done(function(data) {
+        toastr.success('You have borrowed a book');
+        get_books();
+      }).fail(function(error) {
+        toastr.error(error.responseText);
+      });
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
+
+$(document).ready(function() {
+  $("#books-search").keyup(function() {
+    search_table($(this).val());
+  });
+  function search_table(value) {
+    $('#books-table tbody tr').each(function() {
+      var found = 'false';
+      $(this).each(function() {
+        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+          found = 'true';
+        }
+      });
+      if (found == 'true') {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
+});
+</script>

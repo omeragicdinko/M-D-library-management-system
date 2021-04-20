@@ -1,98 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <style>
-  ul li ul li {
-    float: bottom;
-    width: 130px;
-    height: 30px;
-    background-color: white;
-    position: relative;
-    line-height: 40px;
-    text-align: center;
-    font-size: 13px;
-  }
-  ul li a:hover {
-    background-color: white;
-  }
-  ul li ul li {
-    display:none;
-  }
-  ul li:hover ul li {
-    display:block;
-  }
+ul li ul li {
+  float: bottom;
+  width: 130px;
+  height: 30px;
+  background-color: white;
+  position: relative;
+  line-height: 40px;
+  text-align: center;
+  font-size: 13px;
+}
+ul li a:hover {
+  background-color: white;
+}
+ul li ul li {
+  display:none;
+}
+ul li:hover ul li {
+  display:block;
+}
 </style>
     
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-        
-  <title>M & D - Library management system</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+      
+<title>M & D</title>
 
-  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
-  <!-- Google fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
-  <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="css/styles.css" rel="stylesheet"/>
-  <!-- Custom fonts for this theme -->
-  <link rel="stylesheet" href="assets/css/spapp.css">
-  <!-- Theme CSS -->
-  <link rel="stylesheet" type="text/css"  href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"/>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css">
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="css/styles.css" rel="stylesheet"/>
+<!-- Custom fonts for this theme -->
+<link rel="stylesheet" href="assets/css/spapp.css">
+<!-- Theme CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css">
 </head>
 
 <body id="page-top">
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">M & D - Library management system</a>
-      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" 
-        type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" 
-          aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item mx-0 mx-lg-1">
-            <a id="nav-books" class="nav-link py-3 px-0 px-lg-3 rounded" href="#books">Books</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a id="nav-customers" class="nav-link py-3 px-0 px-lg-3 rounded" href="#customers">Customers</a>         
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a id="nav-borrows" class="nav-link py-3 px-0 px-lg-3 rounded" href="#borrows">Borrows</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a id="nav-employees" class="nav-link py-3 px-0 px-lg-3 rounded only-managers" href="#employees">Employees</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a id="nav-libraries" class="nav-link py-3 px-0 px-lg-3 rounded" href="#libraries">Libraries</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a id="nav-logout" class="nav-link py-3 px-0 px-lg-3 rounded" href="" onclick="logout();">Logout</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a id="nav-login" class="nav-link py-3 px-0 px-lg-3 rounded before-login" href="login.html">Login</a>
-          </li>
-        </ul>
-      </div>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">M & D</a>
+    <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" 
+      type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" 
+        aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mx-0 mx-lg-1">
+          <a id="nav-books" class="nav-link py-3 px-0 px-lg-3 rounded" href="#books">Books</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1">
+          <a id="nav-customers" class="nav-link py-3 px-0 px-lg-3 rounded" href="#customers">Customers</a>         
+        </li>
+        <li class="nav-item mx-0 mx-lg-1">
+          <a id="nav-borrows" class="nav-link py-3 px-0 px-lg-3 rounded" href="#borrows">Borrows</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1">
+          <a id="nav-employees" class="nav-link py-3 px-0 px-lg-3 rounded only-managers" href="#employees">Employees</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1">
+          <a id="nav-libraries" class="nav-link py-3 px-0 px-lg-3 rounded" href="#libraries">Libraries</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1">
+          <a id="nav-logout" class="nav-link py-3 px-0 px-lg-3 rounded" href="" onclick="logout();">Logout</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1">
+          <a id="nav-login" class="nav-link py-3 px-0 px-lg-3 rounded before-login" href="login.html">Login</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <main id="spapp" role="main">
-    <section id="books"><h1>Books</h1></section>
-    <section id="customers"><h1>Customers</h1></section>
-    <section id="borrows"><h1>Borrows</h1></section>
-    <section id="employees"><h1>Employees</h1></section>
-    <section id="libraries"><h1>Libraries</h1></section>
-  </main>
+<main id="spapp" role="main">
+  <section id="books"><h1>Books</h1></section>
+  <section id="customers"><h1>Customers</h1></section>
+  <section id="borrows"><h1>Borrows</h1></section>
+  <section id="employees"><h1>Employees</h1></section>
+  <section id="libraries"><h1>Libraries</h1></section>
+</main>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -103,11 +101,11 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <!-- Bootstrap core JS-->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <!-- Third party plugin JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
 <!-- Contact form JS-->
 <script src="assets/mail/jqBootstrapValidation.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js"></script>
@@ -117,44 +115,44 @@
 <script src="js/scripts.js"></script>
 
 <script>
-  if (get_logged_user_id()) {
-    if (get_logged_user_manager()) {
-      toastr.success("Welcome Manager");
-      $('.only-managers').show();
-    } else {
-      toastr.success("Welcome employee");
-      $('.only-managers').hide();
-    }
-    $('.before-login').hide();
+if (get_logged_user_id()) {
+  if (get_logged_user_manager()) {
+    toastr.success("Welcome Manager");
+    $('.only-managers').show();
   } else {
-    window.location = "login.html";
+    toastr.success("Welcome employee");
+    $('.only-managers').hide();
   }
+  $('.before-login').hide();
+} else {
+  window.location = "login.html";
+}
 
-  function logout() {
-    window.localStorage.clear();
-    window.location = "login.html";
-  }
+function logout() {
+  window.localStorage.clear();
+  window.location = "login.html";
+}
 
-  function get_logged_user_id() {
-    if (localStorage.getItem('user_token')) {
-      var user = Utils.parseJwt(localStorage.getItem('user_token'));
-      if (user.data.id) {
-          return 1;
-        } else {
-          return null;
-        }
-    } else {
-      return null;
-    }
-  }
-
-  function get_logged_user_manager() {
+function get_logged_user_id() {
+  if (localStorage.getItem('user_token')) {
     var user = Utils.parseJwt(localStorage.getItem('user_token'));
-    if (user.data.manager != 0) {
+    if (user.data.id) {
         return 1;
-    } else {
+      } else {
         return null;
-    }
+      }
+  } else {
+    return null;
   }
+}
+
+function get_logged_user_manager() {
+  var user = Utils.parseJwt(localStorage.getItem('user_token'));
+  if (user.data.manager != 0) {
+      return 1;
+  } else {
+      return null;
+  }
+}
 </script>
 </html>
