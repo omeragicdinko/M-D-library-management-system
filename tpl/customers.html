@@ -1,55 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
-    <style>
+<style>
+body{
+  background:url("assets/img/background.jpg") no-repeat center fixed;     
+  background-size: cover;;
+}
+.search {
+  width: 50%;
+  padding: 5px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.table{
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+h2 {
+  text-align: center;
+}
+</style>
 
-        body{
-            background:url("assets/img/background.jpg") no-repeat center fixed;     
-            background-size: cover;;
-        }
-     
-        .search {
-          width: 50%;
-          padding: 5px;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-        .table{
-          width: 50%;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-       h2 {
-         text-align: center;
-       }
-      </style>
-     
-
-<br>
-
+<body>
 <h2>Customers</h2>
 
-<br>
-
-<div  class="search" align="center">
-  <input type="text" name="customers_search" id="customers_search" class="form-control" />
+<div  class="search">
+  <button type="button" class="btn btn-primary" onclick="open_add_customer_modal()">Add new customer</button>
+  <input type="text" name="customers-search" id="customers-search" class="form-control" />
 </div>
 
-<table class="table" id="customers_table">
+<div class="table-responsive">
+  <table class="table" id="customers-table">
      <thead>
-       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Phone number</th>
-        <th scope="col">Address</th>
-        <th scope="col">City</th>
-       </tr>
-     </thead>
-     <tbody id="table_content_customers">
-     </tbody>
-   </table>
+      <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Phone number</th>
+      <th scope="col">Address</th>
+      <th scope="col">City</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody id="table-content-customers">
+    </tbody>
+  </table>
+</div>
 
-</html>
+<div class="modal fade" id="add-customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="add-customer-form">
+        <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Enter new customer data</h4>
+        <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="hidden" name="id" class="form-control"></input>
+          </div>
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter customer name" required="true"></input>
+          </div>
+          <div>
+            <label for="surname">Surname:</label>
+            <input type="text" name="surname" class="form-control" placeholder="Enter surname" required="true"></input>
+          </div>
+          <div>
+            <label for="phone_number">Phone number:</label>
+            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+          </div>
+          <div>
+            <label for="street_address">Address:</label>
+            <input type="text" name="street_address" class="form-control" placeholder="Enter address" required="true"></input>
+          </div>
+          <div>
+            <label for="city">City:</label>
+            <input type="text" name="city" class="form-control" placeholder="Enter city name" required="true"></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="add-customer-submit-button" class="btn btn-primary">Add new customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="edit-customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="edit-customer-form">
+        <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Enter customer data</h4>
+        <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="hidden" name="id" class="form-control"></input>
+          </div>
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter customer name" required="true"></input>
+          </div>
+          <div>
+            <label for="surname">Surname:</label>
+            <input type="text" name="surname" class="form-control" placeholder="Enter surname" required="true"></input>
+          </div>
+          <div>
+            <label for="phone_number">Phone number:</label>
+            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+          </div>
+          <div>
+            <label for="street_address">Address:</label>
+            <input type="text" name="street_address" class="form-control" placeholder="Enter address" required="true"></input>
+          </div>
+          <div>
+            <label for="city">City:</label>
+            <input type="text" name="city" class="form-control" placeholder="Enter city name" required="true"></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="update-button" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+get_customers();
+
+function get_customers() {
+  $.get( "rest/customers", function(data) {
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+      html += '<tr> <td>' + data[i].id + '</td>';
+      html += ' <td>' + data[i].name + '</td>';
+      html += ' <td>' + data[i].surname + '</td>';
+      html += ' <td>' + data[i].phone_number + '</td>';
+      html += ' <td>' + data[i].street_address + '</td>';
+      html += '<td>' + data[i].city + '</td>';
+      html += '<td><button type="button" class="btn btn-primary" onClick="open_edit_customer_modal('+data[i].id+')">Update</button></td>';
+      html += '<td><button type="button" class="btn btn-danger" onClick="handle_delete_customer_button('+data[i].id+')">Delete</button></td><tr>';
+    }
+    $("#table-content-customers").html(html);
+    });
+}
+
+function handle_delete_customer_button(id) {
+  $.ajax({
+    url: 'rest/customer/'+id,
+    method: 'DELETE',
+    success: function(result) {
+      toastr.success('Deleted');
+      get_customers();
+    },
+    error: function() {
+      toastr.error('Not deleted');
+    }
+    });
+}
+
+
+function open_add_customer_modal() {
+  $('#add-customer-modal').modal('toggle');
+}
+
+$('#add-customer-form').validate({
+  submitHandler: function(form) {
+    var customer = {
+      id: $('#add-customer-form input[name="id"]').val(),
+      name: $('#add-customer-form input[name="name"]').val(),
+      surname: $('#add-customer-form input[name="surname"]').val(),
+      phone_number: $('#add-customer-form input[name="phone_number"]').val(),
+      street_address: $('#add-customer-form input[name="street_address"]').val(),
+      city: $('#add-customer-form input[name="city"]').val(),
+    }
+    $.post( "rest/customers", customer ).done(function(data) {
+      toastr.success('You have added a new customer');
+      $('#add-customer-modal').modal('toggle');
+      get_customers();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
+
+function open_edit_customer_modal(id) {
+  $.ajax({
+    url: 'rest/customer/'+id,
+    method: 'GET',
+    success: function(data) {
+      $('#edit-customer-modal').modal('toggle');
+      $("#edit-customer-form input[name=name]").val(data[0].name);
+      $("#edit-customer-form input[name=id]").val(data[0].id);
+      $("#edit-customer-form input[name=surname]").val(data[0].surname);
+      $("#edit-customer-form input[name=phone_number]").val(data[0].phone_number);
+      $("#edit-customer-form input[name=street_address]").val(data[0].street_address);
+      $("#edit-customer-form input[name=city]").val(data[0].city);
+    },
+    error: function(){
+      toastr.error(error.responseText);
+    }
+  });
+}
+
+$('#edit-customer-form').validate({
+  submitHandler: function(form) {
+    var customer = {
+      id: $('#edit-customer-form input[name="id"]').val(),
+      name: $('#edit-customer-form input[name="name"]').val(),
+      surname: $('#edit-customer-form input[name="surname"]').val(),
+      phone_number: $('#edit-customer-form input[name="phone_number"]').val(),
+      street_address: $('#edit-customer-form input[name="street_address"]').val(),
+      city: $('#edit-customer-form input[name="city"]').val(),
+    }
+    $.post( "rest/customers", customer ).done(function(data) {
+      toastr.success('You have updated a customer');
+      $('#edit-customer-modal').modal('toggle');
+      get_customers();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
+
+
+$(document).ready(function() {
+  $("#customers-search").keyup(function() {
+    search_table($(this).val());
+  });
+  function search_table(value) {
+    $('#customers-table tbody tr').each(function() {
+      var found = 'false';
+      $(this).each(function() {
+        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+          found = 'true';
+        }
+      });
+      if (found == 'true') {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
+});
+</script>
