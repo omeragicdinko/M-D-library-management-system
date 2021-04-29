@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-    <style>
+<style>
+body{
+  background:url("assets/img/background.jpg") no-repeat center fixed;     
+  background-size: cover;;
+}
+.search-libraries {
+  width: 50%;
+  padding: 5px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+.table{
+  width: 50%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bolder;
+}
+.search-libraries button {
+    height: 5.4rem;
+    padding: 1.5rem 2.5rem;
+    font-size: 1.4rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+.search-libraries button:hover {background-color: #3e8e41}
+.search-libraries button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
 
-        body{
-            background:url("assets/img/background.jpg") no-repeat center fixed;     
-            background-size: cover;;
-        }
-     
-        .search {
-          width: 50%;
-          padding: 5px;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-        .table{
-          width: 50%;
-          margin: auto;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-     
-       h2 {
-         text-align: center;
-       }
-      </style>
-     
-
-<br>
-
+<body>
 <h2>Libraries</h2>
 
-<br>
-
-<div  class="search">
+<div  class="search-libraries">
   <button type="button" class="btn btn-primary" onclick="open_add_library_modal()">Add new library</button>
   <input type="text" name="libraries-search" id="libraries-search" class="form-control" />
 </div>
@@ -59,7 +74,6 @@
   </table>
 </div>
 
-
 <div class="modal fade" id="add-library-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -77,19 +91,19 @@
           </div>
           <div>
             <label for="working_hours">Working hours:</label>
-            <input type="text" name="working_hours" class="form-control" placeholder="Enter working hours" required="true"></input>
+            <input type="text" name="working-hours" class="form-control" placeholder="Enter working hours" required="true"></input>
           </div>
           <div>
             <label for="phone_number">Phone number:</label>
-            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+            <input type="text" name="phone-number" class="form-control" placeholder="Enter phone number" required="true"></input>
           </div>
           <div>
             <label for="address">Address:</label>
-            <input type="text" name="year-of-publishing" class="form-control" placeholder="Enter address" required="true"></input>
+            <input type="text" name="address" class="form-control" placeholder="Enter address" required="true"></input>
           </div>
           <div>
             <label for="city">City:</label>
-            <input type="text" name="library-id" class="form-control" placeholder="Enter city" required="true"></input>
+            <input type="text" name="city" class="form-control" placeholder="Enter city" required="true"></input>
           </div>
           <div>
             <label for="location">Location:</label>
@@ -117,24 +131,27 @@
         </div>
         <div class="modal-body">
           <div>
+            <input type="hidden" name="id" class="form-control"></input>
+          </div>
+          <div>
             <label for="name">Name:</label>
             <input type="text" name="name"  class="form-control" placeholder="Enter library name" required="true"></input>
           </div>
           <div>
             <label for="working_hours">Working hours:</label>
-            <input type="text" name="working_hours" class="form-control" placeholder="Enter working hours" required="true"></input>
+            <input type="text" name="working-hours" class="form-control" placeholder="Enter working hours" required="true"></input>
           </div>
           <div>
             <label for="phone_number">Phone number:</label>
-            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+            <input type="text" name="phone-number" class="form-control" placeholder="Enter phone number" required="true"></input>
           </div>
           <div>
             <label for="address">Address:</label>
-            <input type="text" name="year-of-publishing" class="form-control" placeholder="Enter address" required="true"></input>
+            <input type="text" name="address" class="form-control" placeholder="Enter address" required="true"></input>
           </div>
           <div>
             <label for="city">City:</label>
-            <input type="text" name="library-id" class="form-control" placeholder="Enter city" required="true"></input>
+            <input type="text" name="city" class="form-control" placeholder="Enter city" required="true"></input>
           </div>
           <div>
             <label for="location">Location:</label>
@@ -149,8 +166,8 @@
     </div>
   </div>
 </div>
+</body>
 </html>
-
 
 <script>
 get_libraries();
@@ -165,7 +182,7 @@ function get_libraries() {
       html += ' <td>' + data[i].phone_number + '</td>';
       html += ' <td>' + data[i].address + '</td>';
       html += '<td>' + data[i].city + '</td>';
-      html += '<td>' + data[i].location + '</td>';
+      html += '<td><button type="button" class="btn btn-secondary" onClick="open_location_url(\''+data[i].location+'\')">See location</button></td>';
       html += '<td><button type="button" class="btn btn-primary" onClick="open_edit_library_modal('+data[i].id+')">Update</button></td>';
       html += '<td><button type="button" class="btn btn-danger" onClick="handle_delete_library_button('+data[i].id+')">Delete</button></td><tr>';
     }
@@ -187,23 +204,26 @@ function handle_delete_library_button(id) {
     });
 }
 
-
 function open_add_library_modal() {
   $('#add-library-modal').modal('toggle');
+}
+
+function open_location_url(location) {
+  window.open(location, '_blank');
 }
 
 $('#add-library-form').validate({
   submitHandler: function(form) {
     var library = {
-      id: $('#add-library-form input[name="id"]').val(),
       name: $('#add-library-form input[name="name"]').val(),
-      working_hours: $('#add-library-form input[name="working_hours"]').val(),
-      phone_number: $('#add-library-form input[name="phone_number"]').val(),
+      working_hours: $('#add-library-form input[name="working-hours"]').val(),
+      phone_number: $('#add-library-form input[name="phone-number"]').val(),
       address: $('#add-library-form input[name="address"]').val(),
       city: $('#add-library-form input[name="city"]').val(),
       location: $('#add-library-form input[name="location"]').val(),
     }
-    $.post( "rest/libraries", library ).done(function(data) {
+    console.log(library)
+    $.post( "rest/library", library ).done(function(data) {
       toastr.success('You have added a new library');
       $('#add-library-modal').modal('toggle');
       get_libraries();
@@ -221,8 +241,8 @@ function open_edit_library_modal(id) {
       $('#edit-library-modal').modal('toggle');
       $("#edit-library-form input[name=id]").val(data[0].id);
       $("#edit-library-form input[name=name]").val(data[0].name); 
-      $("#edit-library-form input[name=working_hours]").val(data[0].working_hours);
-      $("#edit-library-form input[name=phone_number]").val(data[0].phone_number);
+      $("#edit-library-form input[name=working-hours]").val(data[0].working_hours);
+      $("#edit-library-form input[name=phone-number]").val(data[0].phone_number);
       $("#edit-library-form input[name=address]").val(data[0].address);
       $("#edit-library-form input[name=city]").val(data[0].city);
       $("#edit-library-form input[name=location]").val(data[0].location);
@@ -238,8 +258,8 @@ $('#edit-library-form').validate({
     var library = {
       id: $('#edit-library-form input[name="id"]').val(),
       name: $('#edit-library-form input[name="name"]').val(),
-      working_hours: $('#edit-library-form input[name="working_hours"]').val(),
-      phone_number: $('#edit-library-form input[name="phone_number"]').val(),
+      working_hours: $('#edit-library-form input[name="working-hours"]').val(),
+      phone_number: $('#edit-library-form input[name="phone-number"]').val(),
       address: $('#edit-library-form input[name="address"]').val(),
       city: $('#edit-library-form input[name="city"]').val(),
       location: $('#edit-library-form input[name="location"]').val(),
@@ -253,7 +273,6 @@ $('#edit-library-form').validate({
     });
   }
 });
-
 
 $(document).ready(function() {
   $("#libraries-search").keyup(function() {

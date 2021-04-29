@@ -5,28 +5,51 @@ body {
   background:url("assets/img/background.jpg") no-repeat center fixed;     
   background-size: cover;
 }
-.search {
+.search-books {
   width: 50%;
   padding: 5px;
   margin: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
 }
 .table {
-  width: 70%;
+  width: 50%;
   margin: auto;
   margin-top: 30px;
   margin-bottom: 30px;
 }
 h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
   text-align: center;
+  font-weight: bolder;
+}
+.search-books button {
+    height: 5.4rem;
+    padding: 1.5rem 2.5rem;
+    font-size: 1.4rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+.search-books button:hover {background-color: #3e8e41}
+.search-books button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 </style>
      
 <body>
 <h2>Books</h2>
 
-<div class="search">
+<div class="search-books">
   <button type="button" class="btn btn-primary" onclick="open_add_book_modal()">Add new book</button>
   <input type="text" name="books-search" id="books-search" class="form-control"/>
 </div>
@@ -298,7 +321,7 @@ $('#borrow-form').validate({
     }
     $.post( "rest/borrow", borrow ).done(function(data) {
       $('#borrow-modal').modal('toggle');
-      $.post('rest/book/availability/'+ id, id).done(function(data) {
+      $.post('rest/book/availability/no/'+ id, id).done(function(data) {
         toastr.success('You have borrowed a book');
         get_books();
       }).fail(function(error) {

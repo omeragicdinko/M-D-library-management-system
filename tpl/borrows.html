@@ -19,7 +19,10 @@ body {
   margin-bottom: 30px;
 }
 h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
   text-align: center;
+  font-weight: bolder;
 }
 </style>
 
@@ -34,6 +37,7 @@ h2 {
   <table class="table" id="borrows-table">
     <thead>
       <tr>
+      <th scope="col">ID</th>
       <th scope="col">Book Name</th>
       <th scope="col">Author</th>
       <th scope="col">Customer Name</th>
@@ -104,6 +108,9 @@ h2 {
             <input type="hidden" name="id" class="form-control"></input>
           </div>
           <div>
+            <input type="hidden" name="book-id" class="form-control"></input>
+          </div>
+          <div>
             <label for="return-date">Return date:</label>
             <input type="text" name="return-date"  class="form-control" placeholder="Enter return date" required="true"></input>
           </div>
@@ -123,8 +130,10 @@ get_borrows();
 function get_borrows() {
   $.get( "rest/borrows", function(data) {
     var html = '';
+    console.log(data);
     for (var i = 0; i < data.length; i++) {
-      html += '<tr> <td>' + data[i].book_name + '</td>';
+      html += '<tr> <td>' + data[i].id + '</td>';
+      html += '<td>' + data[i].book_name + '</td>';
       html += ' <td>' + data[i].author + '</td>';
       html += ' <td>' + data[i].customer_name + '</td>';
       html += ' <td>' + data[i].customer_phone_number + '</td>';
@@ -134,7 +143,7 @@ function get_borrows() {
       html += '<td>' + data[i].return_date + '</td>';
       html += '<td>' + data[i].status + '</td>';
       html += '<td><button type="button" class="btn btn-primary" onClick="open_edit_borrow_modal('+data[i].id+')">Update</button></td>';
-      html += '<td><button type="button" class="btn btn-primary" onClick="open_finalize_modal('+ data[i].id+', \''+data[i].status+'\')">Finalize</button></td>';
+      html += '<td><button type="button" class="btn btn-primary" onClick="open_finalize_modal('+ data[i].id+', \''+data[i].status+'\', '+data[i].book_id+')">Finalize</button></td>';
       html += '<td><button type="button" class="btn btn-danger" onClick="handle_delete_borrow_button('+data[i].id+', \''+data[i].status+'\')">Delete</button></td><tr>';
     }
     $("#table-content-borrows").html(html);
@@ -194,10 +203,11 @@ $('#edit-borrow-form').validate({
   }
 });
 
-function open_finalize_modal(id, status) {
+function open_finalize_modal(id, status, book_id) {
   if (status != "FINALIZED") {
     $('#finalize-borrow-modal').modal('toggle');
     $("#finalize-borrow-form input[name=id]").val(id);
+    $("#finalize-borrow-form input[name=book-id]").val(book_id);
   } else {
     toastr.error('Only non-finalized borrows can be finalized');
   }
@@ -207,13 +217,18 @@ $('#finalize-borrow-form').validate({
   submitHandler: function(form) {
     var borrow = {
       id: $('#finalize-borrow-form input[name="id"]').val(),
+      book_id: $('#finalize-borrow-form input[name="book-id"]').val(),
       return_date: $('#finalize-borrow-form input[name="return-date"]').val(),
       status: "FINALIZED"
     }
     $.post( "rest/borrows", borrow ).done(function(data) {
-      toastr.success('You have finalized a borrow');
       $('#finalize-borrow-modal').modal('toggle');
-      get_borrows();
+      $.post('rest/book/availability/yes/'+ borrow.book_id, borrow.book_id).done(function(data) {
+        toastr.success('You have finalized a borrow');
+        get_borrows();
+      }).fail(function(error) {
+        toastr.error(error.responseText);
+      });
     }).fail(function(error) {
       toastr.error(error.responseText)
     });

@@ -5,28 +5,51 @@ body{
   background:url("assets/img/background.jpg") no-repeat center fixed;     
   background-size: cover;;
 }
-.search {
+.search-customers {
   width: 50%;
   padding: 5px;
   margin: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
 }
 .table{
-  width: 80%;
+  width: 50%;
   margin: auto;
   margin-top: 30px;
   margin-bottom: 30px;
 }
 h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
   text-align: center;
+  font-weight: bolder;
+}
+.search-customers button {
+    height: 5.4rem;
+    padding: 1.5rem 2.5rem;
+    font-size: 1.4rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+.search-customers button:hover {background-color: #3e8e41}
+.search-customers button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 </style>
 
 <body>
 <h2>Customers</h2>
 
-<div  class="search">
+<div  class="search-customers">
   <button type="button" class="btn btn-primary" onclick="open_add_customer_modal()">Add new customer</button>
   <input type="text" name="customers-search" id="customers-search" class="form-control" />
 </div>
@@ -62,9 +85,6 @@ h2 {
         </div>
         <div class="modal-body">
           <div>
-            <input type="hidden" name="id" class="form-control"></input>
-          </div>
-          <div>
             <label for="name">Name:</label>
             <input type="text" name="name" class="form-control" placeholder="Enter customer name" required="true"></input>
           </div>
@@ -74,11 +94,11 @@ h2 {
           </div>
           <div>
             <label for="phone_number">Phone number:</label>
-            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+            <input type="text" name="phone-number" class="form-control" placeholder="Enter phone number" required="true"></input>
           </div>
           <div>
             <label for="street_address">Address:</label>
-            <input type="text" name="street_address" class="form-control" placeholder="Enter address" required="true"></input>
+            <input type="text" name="street-address" class="form-control" placeholder="Enter address" required="true"></input>
           </div>
           <div>
             <label for="city">City:</label>
@@ -118,11 +138,11 @@ h2 {
           </div>
           <div>
             <label for="phone_number">Phone number:</label>
-            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+            <input type="text" name="phone-number" class="form-control" placeholder="Enter phone number" required="true"></input>
           </div>
           <div>
             <label for="street_address">Address:</label>
-            <input type="text" name="street_address" class="form-control" placeholder="Enter address" required="true"></input>
+            <input type="text" name="street-address" class="form-control" placeholder="Enter address" required="true"></input>
           </div>
           <div>
             <label for="city">City:</label>
@@ -137,7 +157,8 @@ h2 {
     </div>
   </div>
 </div>
-
+</body>
+</html>
 
 <script>
 get_customers();
@@ -173,7 +194,6 @@ function handle_delete_customer_button(id) {
     });
 }
 
-
 function open_add_customer_modal() {
   $('#add-customer-modal').modal('toggle');
 }
@@ -181,14 +201,13 @@ function open_add_customer_modal() {
 $('#add-customer-form').validate({
   submitHandler: function(form) {
     var customer = {
-      id: $('#add-customer-form input[name="id"]').val(),
       name: $('#add-customer-form input[name="name"]').val(),
       surname: $('#add-customer-form input[name="surname"]').val(),
-      phone_number: $('#add-customer-form input[name="phone_number"]').val(),
-      street_address: $('#add-customer-form input[name="street_address"]').val(),
+      phone_number: $('#add-customer-form input[name="phone-number"]').val(),
+      street_address: $('#add-customer-form input[name="street-address"]').val(),
       city: $('#add-customer-form input[name="city"]').val(),
     }
-    $.post( "rest/customers", customer ).done(function(data) {
+    $.post( "rest/customer", customer ).done(function(data) {
       toastr.success('You have added a new customer');
       $('#add-customer-modal').modal('toggle');
       get_customers();
@@ -207,8 +226,8 @@ function open_edit_customer_modal(id) {
       $("#edit-customer-form input[name=name]").val(data[0].name);
       $("#edit-customer-form input[name=id]").val(data[0].id);
       $("#edit-customer-form input[name=surname]").val(data[0].surname);
-      $("#edit-customer-form input[name=phone_number]").val(data[0].phone_number);
-      $("#edit-customer-form input[name=street_address]").val(data[0].street_address);
+      $("#edit-customer-form input[name=phone-number]").val(data[0].phone_number);
+      $("#edit-customer-form input[name=street-address]").val(data[0].street_address);
       $("#edit-customer-form input[name=city]").val(data[0].city);
     },
     error: function(){
@@ -223,8 +242,8 @@ $('#edit-customer-form').validate({
       id: $('#edit-customer-form input[name="id"]').val(),
       name: $('#edit-customer-form input[name="name"]').val(),
       surname: $('#edit-customer-form input[name="surname"]').val(),
-      phone_number: $('#edit-customer-form input[name="phone_number"]').val(),
-      street_address: $('#edit-customer-form input[name="street_address"]').val(),
+      phone_number: $('#edit-customer-form input[name="phone-number"]').val(),
+      street_address: $('#edit-customer-form input[name="street-address"]').val(),
       city: $('#edit-customer-form input[name="city"]').val(),
     }
     $.post( "rest/customers", customer ).done(function(data) {
@@ -236,7 +255,6 @@ $('#edit-customer-form').validate({
     });
   }
 });
-
 
 $(document).ready(function() {
   $("#customers-search").keyup(function() {

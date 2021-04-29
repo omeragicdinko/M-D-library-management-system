@@ -1,60 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <style>
-
-    body{
-        background:url("assets/img/background.jpg") no-repeat center fixed;     
-        background-size: cover;;
-    }
-  
-    .search-employees {
-      width: 50%;
-      padding: 5px;
-      margin: auto;
-      margin-top: 20px;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-  
-    .table{
-      width: 50%;
-      margin: auto;
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
-  
-    h2 {
-      margin-top: 40px;
-      margin-bottom: 20px;
-      text-align: center;
-      font-weight: bolder;
-    }
-
-    .search-employees button {
-        height: 54px;
-        padding: 15px 25px;
-        font-size: 18px;
-        text-align: center;
-        cursor: pointer;
-        outline: none;
-        color: #fff;
-        background-color: #04AA6D;
-        border: none;
-        border-radius: 15px;
-        margin-bottom: 20px;
-      }
-
-      .search-employees button:hover {background-color: #3e8e41}
-
-      .search-employees button:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-      }
-
-  </style>
+<style>
+body{
+    background:url("assets/img/background.jpg") no-repeat center fixed;     
+    background-size: cover;
+}
+.search-employees {
+  width: 50%;
+  padding: 5px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+.table{
+  width: 50%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bolder;
+}
+.search-employees button {
+    height: 5.4rem;
+    padding: 1.5rem 2.5rem;
+    font-size: 1.4rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+.search-employees button:hover {background-color: #3e8e41}
+.search-employees button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
      
-
 <h2>Employees</h2>
 
 <div  class="search-employees">
@@ -62,9 +53,11 @@
   <input type="text" name="employees-search" id="employees-search" class="form-control" />
 </div>
 
-<table class="table" id="employees-table">
+<div class="table-responsive">
+  <table class="table" id="employees-table">
     <thead>
       <tr>
+      <th scope="col">ID</th>
       <th scope="col">Name</th>
       <th scope="col">Surname</th>
       <th scope="col">Phone number</th>
@@ -79,8 +72,8 @@
     </thead>
     <tbody id="table-content-employees">
     </tbody>
-</table>
-
+  </table>
+</div>
 
 <div class="modal fade" id="add-employee-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -102,22 +95,22 @@
             <input type="text" name="surname" class="form-control" placeholder="Enter surname" required="true"></input>
           </div>
           <div>
-            <label for="phone_number">Phone number:</label>
-            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+            <label for="phone-number">Phone number:</label>
+            <input type="text" name="phone-number" class="form-control" placeholder="Enter phone number" required="true"></input>
           </div>
           <div>
-            <label for="street_address">Address:</label>
-            <input type="text" name="street_address" class="form-control" placeholder="Enter address" required="true"></input>
+            <label for="street-address">Address:</label>
+            <input type="text" name="street-address" class="form-control" placeholder="Enter address" required="true"></input>
           </div>
           <div>
             <label for="city">City:</label>
             <input type="text" name="city" class="form-control" placeholder="Enter city name" required="true"></input>
           </div>
           <div>
-            <label for="manager">Position:</label><br>
-            <input type="radio" id="manager" name="manager" value="manager">
+            <label for="position">Position:</label><br>
+            <input type="radio" id="manager" name="position" value="1" checked="false">
             <label for="manager">Manager</label>
-            <input type="radio" id="librarian" name="manager" value="librarian">
+            <input type="radio" id="librarian" name="position" value="0" checked="false">
             <label for="librarian">Librarian</label>
           </div>
           <div>
@@ -165,16 +158,23 @@
             <input type="text" name="surname" class="form-control" placeholder="Enter surname" required="true"></input>
           </div>
           <div>
-            <label for="phone_number">Phone number:</label>
-            <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="true"></input>
+            <label for="phone-number">Phone number:</label>
+            <input type="text" name="phone-number" class="form-control" placeholder="Enter phone number" required="true"></input>
           </div>
           <div>
-            <label for="street_address">Address:</label>
-            <input type="text" name="street_address" class="form-control" placeholder="Enter address" required="true"></input>
+            <label for="street-address">Address:</label>
+            <input type="text" name="street-address" class="form-control" placeholder="Enter address" required="true"></input>
           </div>
           <div>
             <label for="city">City:</label>
             <input type="text" name="city" class="form-control" placeholder="Enter city name" required="true"></input>
+          </div>
+          <div>
+            <label for="edit-position">Position:</label><br>
+            <input type="radio" id="edit-manager" name="edit-position" value="1">
+            <label for="edit-manager">Manager</label>
+            <input type="radio" id="edit-librarian" name="edit-position" value="0">
+            <label for="edit-librarian">Librarian</label>
           </div>
           <div>
             <label for="salary">Salary:</label>
@@ -201,133 +201,135 @@
 
 
 <script>
-  get_employees();
+get_employees();
 
-  function get_employees() {
-    $.get( "rest/employees", function(data) {
-      var html = '';
-      for (var i = 0; i < data.length; i++) {
-        html += ' <tr> <td>' + data[i].name + '</td>';
-        html += ' <td>' + data[i].surname + '</td>';
-        html += ' <td>' + data[i].phone_number + '</td>';
-        html += ' <td>' + data[i].street_address + '</td>';
-        html += '<td>' + data[i].city + '</td>';
-        html += ' <td>' + data[i].salary + '</td>';
-        html += '<td>' + data[i].email + '</td>';
-        html += '<td>' + data[i].password + '</td>';
-        html += '<td><button type="button" class="btn btn-primary" onClick="open_edit_employee_modal('+data[i].id+')">Update</button></td>';
-        html += '<td><button type="button" class="btn btn-danger" onClick="handle_delete_employee_button('+data[i].id+')">Delete</button></td><tr>';
-      }
-      $("#table-content-employees").html(html);
-      });
-  }
+function get_employees() {
+  $.get( "rest/employees", function(data) {
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+      html += ' <tr> <td>' + data[i].id + '</td>';
+      html += ' <td>' + data[i].name + '</td>';
+      html += ' <td>' + data[i].surname + '</td>';
+      html += ' <td>' + data[i].phone_number + '</td>';
+      html += ' <td>' + data[i].street_address + '</td>';
+      html += '<td>' + data[i].city + '</td>';
+      html += ' <td>' + data[i].salary + '</td>';
+      html += '<td>' + data[i].email + '</td>';
+      html += '<td>' + data[i].password + '</td>';
+      html += '<td><button type="button" class="btn btn-primary" onClick="open_edit_employee_modal('+data[i].id+')">Update</button></td>';
+      html += '<td><button type="button" class="btn btn-danger" onClick="handle_delete_employee_button('+data[i].id+')">Delete</button></td><tr>';
+    }
+    $("#table-content-employees").html(html);
+  });
+}
 
-  function handle_delete_employee_button(id) {
-    $.ajax({
-      url: 'rest/employee/'+id,
-      method: 'DELETE',
-      success: function(result) {
-        toastr.success('Deleted');
-        get_employees();
-      },
-      error: function() {
-        toastr.error('Not deleted');
-      }
-      });
-  }
-
-
-  function open_add_employee_modal() {
-    $('#add-employee-modal').modal('toggle');
-  }
-
-  $('#add-employee-form').validate({
-    submitHandler: function(form) {
-      var employee = {
-        name: $('#add-employee-form input[name="name"]').val(),
-        surname: $('#add-employee-form input[name="surname"]').val(),
-        phone_number: $('#add-employee-form input[name="phone_number"]').val(),
-        street_address: $('#add-employee-form input[name="street_address"]').val(),
-        city: $('#add-employee-form input[name="city"]').val(),
-        salary: $('#add-employee-form input[name="salary"]').val(),
-        email: $('#add-employee-form input[name="email"]').val(),
-        password: $('#add-employee-form input[name="password"]').val(),
-        manager: $('#add-employee-form input[name="manager"]').val(),
-      }
-      $.post( "rest/employee", employee ).done(function(data) {
-        toastr.success('You have added a new employee');
-        $('#add-employee-modal').modal('toggle');
-        get_employees();
-      }).fail(function(error) {
-        toastr.error(error.responseText)
-      });
+function handle_delete_employee_button(id) {
+  $.ajax({
+    url: 'rest/employee/'+id,
+    method: 'DELETE',
+    success: function(result) {
+      toastr.success('Deleted');
+      get_employees();
+    },
+    error: function() {
+      toastr.error('Not deleted');
     }
   });
+}
 
-  function open_edit_employee_modal(id) {
-    $.ajax({
-      url: 'rest/employee/'+id,
-      method: 'GET',
-      success: function(data) {
-        $('#edit-employee-modal').modal('toggle');
-        $("#edit-employee-form input[name=name]").val(data[0].name);
-        $("#edit-employee-form input[name=id]").val(data[0].id);
-        $("#edit-employee-form input[name=surname]").val(data[0].surname);
-        $("#edit-employee-form input[name=phone_number]").val(data[0].phone_number);
-        $("#edit-employee-form input[name=street_address]").val(data[0].street_address);
-        $("#edit-employee-form input[name=city]").val(data[0].city);
-        $("#edit-employee-form input[name=salary]").val(data[0].salary);
-        $("#edit-employee-form input[name=email]").val(data[0].email);
-        $("#edit-employee-form input[name=password]").val(data[0].password);
-      },
-      error: function(){
-        toastr.error(error.responseText);
-      }
+function open_add_employee_modal() {
+  $('#add-employee-modal').modal('toggle');
+}
+
+$('#add-employee-form').validate({
+  submitHandler: function(form) {
+    var employee = {
+      name: $('#add-employee-form input[name="name"]').val(),
+      surname: $('#add-employee-form input[name="surname"]').val(),
+      phone_number: $('#add-employee-form input[name="phone-number"]').val(),
+      street_address: $('#add-employee-form input[name="street-address"]').val(),
+      city: $('#add-employee-form input[name="city"]').val(),
+      salary: $('#add-employee-form input[name="salary"]').val(),
+      email: $('#add-employee-form input[name="email"]').val(),
+      password: $('#add-employee-form input[name="password"]').val(),
+      manager: $('#add-employee-form input[name="position"]:checked').val(),
+    }
+    $('#add-employee-form input[name="position"]:checked').prop("checked", false);
+    $.post( "rest/employee", employee ).done(function(data) {
+      toastr.success('You have added a new employee');
+      $('#add-employee-modal').modal('toggle');
+      get_employees();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
     });
   }
+});
 
-  $('#edit-employee-form').validate({
-    submitHandler: function(form) {
-      var employee = {
-        id: $('#edit-employee-form input[name="id"]').val(),
-        name: $('#edit-employee-form input[name="name"]').val(),
-        surname: $('#edit-employee-form input[name="surname"]').val(),
-        phone_number: $('#edit-employee-form input[name="phone_number"]').val(),
-        street_address: $('#edit-employee-form input[name="street_address"]').val(),
-        city: $('#edit-employee-form input[name="city"]').val(),
-        salary: $('#edit-employee-form input[name="salary"]').val(),
-        email: $('#edit-employee-form input[name="email"]').val(),
-        password: $('#edit-employee-form input[name="password"]').val(),
-      }
-      $.post( "rest/employees", employee ).done(function(data) {
-        toastr.success('You have updated a employee');
-        $('#edit-employee-modal').modal('toggle');
-        get_employees();
-      }).fail(function(error) {
-        toastr.error(error.responseText)
-      });
+function open_edit_employee_modal(id) {
+  $.ajax({
+    url: 'rest/employee/'+id,
+    method: 'GET',
+    success: function(data) {
+      $('#edit-employee-modal').modal('toggle');
+      $("#edit-employee-form input[name=name]").val(data[0].name);
+      $("#edit-employee-form input[name=id]").val(data[0].id);
+      $("#edit-employee-form input[name=surname]").val(data[0].surname);
+      $("#edit-employee-form input[name=phone-number]").val(data[0].phone_number);
+      $("#edit-employee-form input[name=street-address]").val(data[0].street_address);
+      $("#edit-employee-form input[name=city]").val(data[0].city);
+      $("#edit-employee-form input[name=salary]").val(data[0].salary);
+      $("#edit-employee-form input[name=email]").val(data[0].email);
+      $('#edit-employee-form input[value='+data[0].manager+']').prop("checked", true);
+      $("#edit-employee-form input[name=password]").val(data[0].password);
+    },
+    error: function(){
+      toastr.error(error.responseText);
     }
   });
+}
 
-
-  $(document).ready(function() {
-    $("#employees-search").keyup(function() {
-      search_table($(this).val());
+$('#edit-employee-form').validate({
+  submitHandler: function(form) {
+    var employee = {
+      id: $('#edit-employee-form input[name="id"]').val(),
+      name: $('#edit-employee-form input[name="name"]').val(),
+      surname: $('#edit-employee-form input[name="surname"]').val(),
+      phone_number: $('#edit-employee-form input[name="phone-number"]').val(),
+      street_address: $('#edit-employee-form input[name="street-address"]').val(),
+      city: $('#edit-employee-form input[name="city"]').val(),
+      salary: $('#edit-employee-form input[name="salary"]').val(),
+      email: $('#edit-employee-form input[name="email"]').val(),
+      password: $('#edit-employee-form input[name="password"]').val(),
+      manager: $('#edit-employee-form input[name="edit-position"]:checked').val()
+    }
+    $.post( "rest/employees", employee ).done(function(data) {
+      toastr.success('You have updated a employee');
+      $('#edit-employee-modal').modal('toggle');
+      get_employees();
+    }).fail(function(error) {
+      toastr.error(error.responseText)
     });
-    function search_table(value) {
-      $('#employees-table tbody tr').each(function() {
-        var found = 'false';
-        $(this).each(function() {
-          if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-            found = 'true';
-          }
-        });
-        if (found == 'true') {
-          $(this).show();
-        } else {
-          $(this).hide();
+  }
+});
+
+$(document).ready(function() {
+  $("#employees-search").keyup(function() {
+    search_table($(this).val());
+  });
+  function search_table(value) {
+    $('#employees-table tbody tr').each(function() {
+      var found = 'false';
+      $(this).each(function() {
+        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+          found = 'true';
         }
       });
-    }
-  });
+      if (found == 'true') {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
+});
 </script>

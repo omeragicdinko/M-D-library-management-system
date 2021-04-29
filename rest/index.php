@@ -134,9 +134,14 @@ Flight::route('POST /login', function()
     }
 });
 
-Flight::route('POST /book/availability/@id', function($id)
+Flight::route('POST /book/availability/no/@id', function($id)
 {
-    Flight::book_dao()->updateAvailability($id);
+    Flight::book_dao()->updateAvailabilityToNo($id);
+});
+
+Flight::route('POST /book/availability/yes/@id', function($id)
+{
+    Flight::book_dao()->updateAvailabilityToYes($id);
 });
 
 Flight::route('POST /books', function()

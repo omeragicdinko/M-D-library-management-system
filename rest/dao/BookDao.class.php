@@ -35,9 +35,15 @@ class BookDao extends BaseDao
         return $this->update($entity, $query);
     }
 
-    public function updateAvailability($id)
+    public function updateAvailabilityToNo($id)
     {
       $query = "UPDATE books SET available='NO' WHERE id = :id";
+      return @($this->executeQuerywithoutReturn($query,["id" => $id]))[0];
+    }
+
+    public function updateAvailabilityToYes($id)
+    {
+      $query = "UPDATE books SET available='YES' WHERE id = :id";
       return @($this->executeQuerywithoutReturn($query,["id" => $id]))[0];
     }
 }
