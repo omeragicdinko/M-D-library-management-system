@@ -44,6 +44,7 @@ h2 {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+.dropdown-label {padding-top: 10px;}
 </style>
      
 <body>
@@ -82,7 +83,7 @@ h2 {
     <div class="modal-content">
       <form id="add-book-form">
         <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Enter new book data</h4>
+        <h4 class="modal-title" id="add-book-modal-label">Enter new book data</h4>
         <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -105,8 +106,8 @@ h2 {
             <input type="text" name="year-of-publishing" class="form-control" placeholder="Enter year of publishing" required="true"></input>
           </div>
           <div>
-            <label for="library-id">Library ID:</label>
-            <input type="text" name="library-id" class="form-control" placeholder="Enter library ID" required="true"></input>
+            <label class="dropdown-label" for="add-library-id">Library ID:</label>
+            <select id="add-library-id" name="library-id"></select>
           </div>
         </div>
         <div class="modal-footer">
@@ -123,7 +124,7 @@ h2 {
     <div class="modal-content">
       <form id="edit-book-form">
         <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Enter book data</h4>
+        <h4 class="modal-title" id="edit-book-modal-label">Enter book data</h4>
         <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -149,8 +150,8 @@ h2 {
             <input type="text" name="year-of-publishing" class="form-control" placeholder="Enter year of publishing" required="true"></input>
           </div>
           <div>
-            <label for="library-id">Library ID:</label>
-            <input type="text" name="library-id" class="form-control" placeholder="Enter library ID" required="true"></input>
+            <label class="dropdown-label" for="library-id">Library ID:</label>
+            <select id="edit-library-id" name="library-id"></select>
           </div>
         </div>
         <div class="modal-footer">
@@ -167,7 +168,7 @@ h2 {
     <div class="modal-content">
       <form id="borrow-form">
         <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLabel">Enter borrow data</h4>
+          <h4 class="modal-title" id="borrow-modal-label">Enter borrow data</h4>
           <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -178,11 +179,11 @@ h2 {
           </div>
           <div>
             <label for="customer-id">Customer ID:</label>
-            <input type="text" name="customer-id"  class="form-control" placeholder="Enter customer ID" required="true"></input>
+            <select id="customer-id" name="customer-id"></select>
           </div>
           <div>
-            <label for="employee-id">Employee ID:</label>
-            <input type="text" name="employee-id" class="form-control" placeholder="Enter employee ID" required="true"></input>
+            <label for="employee-id">Employee Name:</label>
+            <select id="employee-id" name="employee-id"></select>
           </div>
           <div>
             <label for="borrow-date">Borrow date:</label>
@@ -240,6 +241,12 @@ function handle_delete_book_button(id) {
 
 function open_add_book_modal() {
   $('#add-book-modal').modal('toggle');
+  $('#add-library-id').empty();
+  $.get( "rest/libraries", function(data) {
+    for (var i = 0; i < data.length; i++) {
+      $('#add-library-id').append(new Option(data[i].name, data[i].id));
+    }
+  });
 }
 
 $('#add-book-form').validate({
@@ -250,7 +257,7 @@ $('#add-book-form').validate({
       genre: $('#add-book-form input[name="genre"]').val(),
       year_of_publishing: $('#add-book-form input[name="year-of-publishing"]').val(),
       available: "YES",
-      library_id: $('#add-book-form input[name="library-id"]').val(),
+      library_id: $('#add-book-form select[name="library-id"]').val(),
     }
     $.post( "rest/book", book ).done(function(data) {
       toastr.success('You have added a new book');
@@ -263,6 +270,12 @@ $('#add-book-form').validate({
 });
 
 function open_edit_book_modal(id) {
+  $('#edit-library-id').empty();
+  $.get( "rest/libraries", function(data) {
+    for (var i = 0; i < data.length; i++) {
+      $('#edit-library-id').append(new Option(data[i].name, data[i].id));
+    }
+  });
   $.ajax({
     url: 'rest/book/'+id,
     method: 'GET',
@@ -273,7 +286,8 @@ function open_edit_book_modal(id) {
       $("#edit-book-form input[name=author]").val(data[0].author);
       $("#edit-book-form input[name=genre]").val(data[0].genre);
       $("#edit-book-form input[name=year-of-publishing]").val(data[0].year_of_publishing);
-      $("#edit-book-form input[name=library-id]").val(data[0].library_id);
+      console.log(data[0].library_id);
+      $('#edit-book-form option[value='+data[0].library_id+']').attr("selected", "selected");
     },
     error: function(){
       toastr.error(error.responseText);
@@ -289,7 +303,7 @@ $('#edit-book-form').validate({
       author: $('#edit-book-form input[name="author"]').val(),
       genre: $('#edit-book-form input[name="genre"]').val(),
       year_of_publishing: $('#edit-book-form input[name="year-of-publishing"]').val(),
-      library_id: $('#edit-book-form input[name="library-id"]').val(),
+      library_id: $('#edit-book-form select[name="library-id"]').val(),
     }
     $.post( "rest/books", book ).done(function(data) {
       toastr.success('You have updated a book');
@@ -304,7 +318,19 @@ $('#edit-book-form').validate({
 function handle_borrow_book_button(id, available) {
   if (available==="YES") {
     $('#borrow-modal').modal('toggle');
+    $('#employee-id').empty();
+    $('#customer-id').empty();
     $("#borrow-form input[name=book-id]").val(id);
+    $.get( "rest/customers", function(data) {
+      for (var i = 0; i < data.length; i++) {
+        $('#customer-id').append(new Option(data[i].id, data[i].id));
+      }
+      $.get( "rest/employees", function(data) {
+        for (var i = 0; i < data.length; i++) {
+          $('#employee-id').append(new Option(data[i].name, data[i].id));
+        }
+      });
+    });
   } else {
     toastr.error("That book is not available");
   }
@@ -315,8 +341,8 @@ $('#borrow-form').validate({
     var id = $('#borrow-form input[name="book-id"]').val();
     var borrow = {
       book_id: $('#borrow-form input[name="book-id"]').val(),
-      customer_id: $('#borrow-form input[name="customer-id"]').val(),
-      employee_id: $('#borrow-form input[name="employee-id"]').val(),
+      customer_id: $('#borrow-form select[name="customer-id"]').val(),
+      employee_id: $('#borrow-form select[name="employee-id"]').val(),
       borrow_date: $('#borrow-form input[name="borrow-date"]').val(),
     }
     $.post( "rest/borrow", borrow ).done(function(data) {

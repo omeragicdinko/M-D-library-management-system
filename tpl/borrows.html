@@ -62,7 +62,7 @@ h2 {
     <div class="modal-content">
       <form id="edit-borrow-form">
         <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLabel">Enter borrow data</h4>
+          <h4 class="modal-title" id="edit-borrow-modal-label">Enter borrow data</h4>
           <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -98,7 +98,7 @@ h2 {
     <div class="modal-content">
       <form id="finalize-borrow-form">
         <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLabel">Enter borrow data</h4>
+          <h4 class="modal-title" id="finalize-borrow-modal-label">Enter borrow data</h4>
           <button type="button" style="display:inline-block;" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -197,6 +197,7 @@ $('#edit-borrow-form').validate({
       toastr.success('You have updated a borrow');
       $('#edit-borrow-modal').modal('toggle');
       get_borrows();
+      get_books();
     }).fail(function(error) {
       toastr.error(error.responseText)
     });

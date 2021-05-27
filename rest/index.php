@@ -3,7 +3,12 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS, PATCH');
 
 require 'Auth.php';
-require_once('../vendor/autoload.php');
+require 'Mail.php';
+require 'NumberOfBooksLeftNotifier.php';
+require 'Subject.php';
+
+require_once '../vendor/autoload.php';
+
 require_once('config.php');
 require_once('dao/CustomerDao.class.php');
 require_once('dao/EmployeeDao.class.php');
@@ -136,12 +141,26 @@ Flight::route('POST /login', function()
 
 Flight::route('POST /book/availability/no/@id', function($id)
 {
+    $subject = new Subject();
+    $bo1 = new NumberOfBooksLeftNotifier();
+    $subject->attach($bo1);
     Flight::book_dao()->updateAvailabilityToNo($id);
+    $book = Flight::book_dao()->getById($id);
+    $numberOfAvailableBooksLeft = Flight::book_dao()->checkAvailability($book[0]['name']);
+    $subject->someBusinessLogic(sizeof($numberOfAvailableBooksLeft),$book[0]['name']);
+    $subject->detach($bo1);
 });
 
 Flight::route('POST /book/availability/yes/@id', function($id)
 {
+    $subject = new Subject();
+    $bo1 = new NumberOfBooksLeftNotifier();
+    $subject->attach($bo1);
     Flight::book_dao()->updateAvailabilityToYes($id);
+    $book = Flight::book_dao()->getById($id);
+    $numberOfAvailableBooksLeft = Flight::book_dao()->checkAvailability($book[0]['name']);
+    $subject->someBusinessLogic(sizeof($numberOfAvailableBooksLeft),$book[0]['name']);
+    $subject->detach($bo1);
 });
 
 Flight::route('POST /books', function()
