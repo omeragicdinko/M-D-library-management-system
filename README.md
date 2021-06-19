@@ -48,3 +48,15 @@ Buttons in libraries table  are functional (you are able to edit/delete librarie
 
 LOGOUT
 When logout is clicked, user is logged out and redirected to the login page.
+
+
+
+Version 1.1.0 Release Notes:
+
+Send notification regarding the number of books left (0 and 1) implemented
+
+Dropdowns added
+
+Backgroud modified
+
+Project_Report.pdf and Selenium tests added
