@@ -1,110 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-
-  html {    
-    background: url('assets/img/backLogin.jpg') no-repeat center fixed;     
-    background-size: cover;
-    font-family: sans-serif;
-  }
-
-  .loginbox {
-    width:320px;
-    height:390px;
-    background: rgb(22, 13, 13);
-    color:#fff;
-    top:50%;
-    left:50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    box-sizing:border-box;
-    padding: 70px 30px;
-    border-radius:10%;
-
-  }
-
-  .loginbox input {
-    width:100%;
-    margin-bottom: 5px;
-  }
-
-  .loginbox input[type="text"], input[type=password], input[type=email] {
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-    outline:none;
-    height: 40px;
-    color: #fff;
-    font-size: 16px;
-  }
-
-  .loginbox button {
-    width:100%;
-    border:none;
-    outline:none;
-    height: 40px;
-    background: #fb2525;
-    color: #fff;
-    font-size: 18px;
-    border-radius: 20px;
-  }
-
-  .loginbox button[type="submit"]:hover {
-    cursor: pointer;
-    background: #ffc107;
-    color: #000;
-    margin-bottom: 5px;
-  }
-
-  h1 {
-    margin:0;
-    padding: 0 0 20px;
-    text-align: center;
-    font-size: 22px;
-  }
-
-  .loginbox p {
-    margin:0;
-    padding: 0;
-    font-weight: bold;
-  }
-
-  .loginbox a {
-    text-decoration: none;
-    font-size: 12px;
-    line-height: 20px;
-    color: darkgrey;
-    margin-top: 5px;
-  }
-
-  .loginbox a:hover {
-    color: #ffc107;
-  }
+html {
+  background: url('assets/img/backLogin.jpg') no-repeat center fixed;     
+  background-size: cover;
+  font-family: sans-serif;
+}
+.loginbox {
+  width:320px;
+  height:390px;
+  background: rgb(22, 13, 13);
+  color:#fff;
+  top:50%;
+  left:50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing:border-box;
+  padding: 70px 30px;
+  border-radius:10%;
+}
+.loginbox input {
+  width:100%;
+  margin-bottom: 5px;
+}
+.loginbox input[type="text"], input[type=password], input[type=email] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline:none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.loginbox button {
+  width:100%;
+  border:none;
+  outline:none;
+  height: 40px;
+  background: #fb2525;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+.loginbox button[type="submit"]:hover {
+  cursor: pointer;
+  background: #ffc107;
+  color: #000;
+  margin-bottom: 5px;
+}
+h1 {
+  margin:0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+.loginbox p {
+  margin:0;
+  padding: 0;
+  font-weight: bold;
+}
+.loginbox a {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: darkgrey;
+  margin-top: 5px;
+}
+.loginbox a:hover {
+  color: #ffc107;
+}
 </style>
 
 <head>
-  <title>M & D Login</title>
+<title>M & D Login</title>
 
-  <link rel="stylesheet" href="assets/css/spapp.css" />
-  <link rel="stylesheet" href="assets/css/custom.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css">
+<link rel="stylesheet" href="assets/css/spapp.css" />
+<link rel="stylesheet" href="assets/css/custom.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css">
 </head>
 
 <body>
-  <div class="loginbox">
-    <h1>Login here</h1>
-    <form id="loginbox" method="get">
-      
-      <p>Email</p>
-      <input type="email" name="email" minlength="2" placeholder="Email" required>
-
-      <p>Password</p>
-      <input type="password" name="password" placeholder="Password" required>
-    
-      <button type="submit" name="sumbit">Sumbit</button>
-    </form>
-  </div>
+<div class="loginbox">
+  <h1>Login here</h1>
+  <form id="loginbox" method="get">
+    <p>Email</p>
+    <input type="email" name="email" minlength="2" placeholder="Email" required>
+    <p>Password</p>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit" name="sumbit">Sumbit</button>
+  </form>
+</div>
 </body>
 
 <script src="assets/js/jquery-3.1.0.min.js"></script>
@@ -114,34 +100,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js"></script>
 
 <script>
-  var user = window.localStorage.getItem("user_token");
+var user = window.localStorage.getItem("user_token");
 
-  user = Utils.parseJwt(user);
-  if (user) {
-    if (user.email) {
-      window.location = "index.html";
-    } else {
-      $('body').show();
-    }
+user = Utils.parseJwt(user);
+if (user) {
+  if (user.email) {
+    window.location = "index.html";
   } else {
     $('body').show();
   }
+} else {
+  $('body').show();
+}
 
-  $('#loginbox').validate({
-      submitHandler: function(form) {
-        var user = {
-          email: $('#loginbox input[type="email"]').val(),
-          password: $('#loginbox input[type="password"]').val()
-        }
-
-        $.post( "rest/login", user ).done(function(data) {
-          window.localStorage.setItem("user_token", data.user_token);
-          console.log(data);
-          window.location = "index.html"; // redirect from login form to main app
-        }).fail(function(error) {
-          toastr.error(error.responseText)
-        });
+$('#loginbox').validate({
+  submitHandler: function(form) {
+    var user = {
+      email: $('#loginbox input[type="email"]').val(),
+      password: $('#loginbox input[type="password"]').val()
     }
-  });
+
+    $.post( "rest/login", user ).done(function(data) {
+      window.localStorage.setItem("user_token", data.user_token);
+      console.log(data);
+      window.location = "index.html"; // redirect from login form to main app
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    });
+  }
+});
 </script>
 </html>
